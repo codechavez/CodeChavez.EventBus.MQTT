@@ -9,7 +9,7 @@
     <Title>CodeChavez EventBus MQTT Abstractions Library</Title>
     <Authors>Victor A Chavez</Authors>
     <Product>CodeChavez.EventBus.MQTT.Abstractions</Product>
-    <Version>1.0.0-preview001</Version>
+    <Version>1.0.0-preview002</Version>
     <Copyright>2020-2026</Copyright>
     <Description>Interfaces and Abstraction for Event Bus MQTT implementations</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>

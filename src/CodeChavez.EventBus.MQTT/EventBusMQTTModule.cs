@@ -1,4 +1,5 @@
 ﻿using CodeChavez.EventBus.MQTT.Abstractions;
+using CodeChavez.EventBus.MQTT.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,11 +14,11 @@ public record ConsumerMqttConfig : MqttOptions
 public static class EventBusMQTTModule
 {
     public static IServiceCollection AddConsumerMQTT(
-        this IServiceCollection services, 
+        this IServiceCollection services,
         IConfiguration configuration)
     {
         services.Configure<ConsumerMqttConfig>(configuration.GetSection(ConsumerMqttConfig.ConsumerSection));
-        services.AddSingleton<EventBusMqttClient>();
+        services.AddSingleton<IEventBusMqttClient, EventBusMqttClient>();
 
         return services;
     }

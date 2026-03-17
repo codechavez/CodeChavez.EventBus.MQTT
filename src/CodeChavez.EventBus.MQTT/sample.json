@@ -1,17 +1,15 @@
 {
   "MqttConsumer": {
-    "host": "localhost",
-    "port": 1883,
+    "Host": "localhost",
+    "Port": 1883,
     "Consumer": {
       "ClientId": "mqtt-consumer",
       "CleanSession": true,
       "KeepAlivePeriod": 60,
-      "Topics": [
-        {
-          "topic": "test/topic",
-          "qos": 1
-        }
-      ]
+      "Topic": "$shared/antsB01/device/ble/detections",
+      "MaxParallelism": 4,
+      "AutoReconnectDelay": 5,
+      "Qos": 1
     },
     "Producer": {
       "clientId": "mqtt"

@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>CodeChavez.EventBus.MQTT.Abstractions</PackageId>
+    <Title>CodeChavez EventBus MQTT Abstractions Library</Title>
+    <Authors>Victor A Chavez</Authors>
+    <Product>CodeChavez.EventBus.MQTT.Abstractions</Product>
+    <Version>1.0.0-preview001</Version>
+    <Copyright>2020-2026</Copyright>
+    <Description>Interfaces and Abstraction for Event Bus MQTT implementations</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/codechavez/CodeChavez.EventBus.MQTT</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/codechavez/CodeChavez.EventBus.MQTT</RepositoryUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageTags>codechavez,event,bus,events,mqtt,helpers,utilities,.net</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,21 @@
+{
+  "MqttConsumer": {
+    "host": "localhost",
+    "port": 1883,
+    "Consumer": {
+      "ClientId": "mqtt-consumer",
+      "CleanSession": true,
+      "KeepAlivePeriod": 60,
+      "Topics": [
+        {
+          "topic": "test/topic",
+          "qos": 1
+        }
+      ]
+    },
+    "Producer": {
+      "clientId": "mqtt"
+    }
+
+  }
+}

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/CodeChavez.EventBus.MQTT.Abstractions/CodeChavez.EventBus.MQTT.Abstractions.csproj" Id="939b0432-f87d-4dd7-9262-74cae1be58e5" />
+  <Project Path="src/CodeChavez.EventBus.MQTT/CodeChavez.EventBus.MQTT.csproj" Id="0ce91aad-8eb4-40c7-97db-75102f5e48fd" />
+</Solution>

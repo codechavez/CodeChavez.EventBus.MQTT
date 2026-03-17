@@ -1,0 +1,79 @@
+﻿name: Build and Publish EventBus MWQTT Packages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      
+      - name: Restore dependencies
+        run: dotnet restore
+      
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+  
+  publish-abstractions:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      
+      - name: Restore dependencies
+        run: dotnet restore
+      
+      - name: Build Abstractions
+        run: dotnet build src/CodeChavez.EventBus.MQTT.Abstractions/CodeChavez.EventBus.MQTT.Abstractions.csproj --configuration Release --no-restore
+      
+      - name: Pack Abstractions
+        run: dotnet pack src/CodeChavez.EventBus.MQTT.Abstractions/CodeChavez.EventBus.MQTT.Abstractions.csproj --configuration Release --output nupkg --no-build
+      
+      - name: Publish Abstractions to NuGet
+        run: dotnet nuget push nupkg/*.nupkg --api-key $NUGET_AUTH_TOKEN --source https://api.nuget.org/v3/index.json --skip-duplicate
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_API_KEY }}
+  
+  publish-mqtt:
+    needs: publish-abstractions
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      
+      - name: Restore dependencies
+        run: dotnet restore
+      
+      - name: Build MQTT
+        run: dotnet build src/CodeChavez.EventBus.MQTT/CodeChavez.EventBus.MQTT.csproj --configuration Release --no-restore
+      
+      - name: Pack MQTT
+        run: dotnet pack src/CodeChavez.EventBus.MQTT/CodeChavez.EventBus.MQTT.csproj --configuration Release --output nupkg --no-build
+      
+      - name: Publish MQTT to NuGet
+        run: dotnet nuget push nupkg/*.nupkg --api-key $NUGET_AUTH_TOKEN --source https://api.nuget.org/v3/index.json --skip-duplicate
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_API_KEY }}

@@ -29,4 +29,9 @@
     <ProjectReference Include="..\CodeChavez.EventBus.MQTT.Abstractions\CodeChavez.EventBus.MQTT.Abstractions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
 </Project>

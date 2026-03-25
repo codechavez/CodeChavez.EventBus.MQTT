@@ -9,7 +9,7 @@
     <Title>CodeChavez EventBus MQTT Library</Title>
     <Authors>Victor A Chavez</Authors>
     <Product>CodeChavez.EventBus.MQTT</Product>
-    <Version>1.0.0-preview002</Version>
+    <Version>1.0.0-preview003</Version>
     <Copyright>2020-2026</Copyright>
     <Description>Event Bus MQTT is a wrapper using MQTTNet to connect to MQTT Brokers. This allow for modularity</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>

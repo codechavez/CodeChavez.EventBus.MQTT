@@ -13,6 +13,16 @@ public record ConsumerMqttConfig : MqttOptions
 
 public static class EventBusMQTTModule
 {
+    public static IServiceCollection AddMQTTSubscription(
+        this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        services.Configure<ConsumerMqttConfig>(configuration.GetSection(ConsumerMqttConfig.ConsumerSection));
+        services.AddSingleton<IMqttSubscription, MqttSubscription>();
+
+        return services;
+    }
+
     public static IServiceCollection AddConsumerMQTT(
         this IServiceCollection services,
         IConfiguration configuration)

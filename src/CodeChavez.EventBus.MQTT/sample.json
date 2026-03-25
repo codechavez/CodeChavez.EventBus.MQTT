@@ -6,8 +6,9 @@
       "ClientId": "mqtt-consumer",
       "CleanSession": true,
       "KeepAlivePeriod": 60,
-      "Topic": "$shared/antsB01/device/ble/detections",
-      "MaxParallelism": 4,
+      "ConsumerGroup": "antsB01",
+      "Topic": "device/ble/detections",
+      "MaxConcurrency": 4,
       "AutoReconnectDelay": 5,
       "Qos": 1
     },

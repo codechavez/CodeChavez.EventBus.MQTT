@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CodeChavez.EventBus.MQTT.Abstractions;
+namespace CodeChavez.EventBus.MQTT.Abstractions.Interfaces;
 
 public interface IMqttSubscription
 {

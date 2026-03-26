@@ -1,4 +1,5 @@
-﻿using CodeChavez.EventBus.MQTT.Interfaces;
+﻿using CodeChavez.EventBus.MQTT.Abstractions.Consumers;
+using CodeChavez.EventBus.MQTT.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MQTTnet;
@@ -8,11 +9,11 @@ namespace CodeChavez.EventBus.MQTT;
 
 public class EventBusMqttClient : IEventBusMqttClient
 {
-    private readonly ConsumerMqttConfig _mqttOptions;
+    private readonly ConsumerOptions _mqttOptions;
     private readonly ILogger<EventBusMqttClient> _logger;
 
     public EventBusMqttClient(
-        IOptions<ConsumerMqttConfig> mqttOptions,
+        IOptions<ConsumerOptions> mqttOptions,
         ILogger<EventBusMqttClient> logger)
     {
         _mqttOptions = mqttOptions.Value ?? throw new ArgumentNullException(nameof(mqttOptions));

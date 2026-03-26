@@ -1,4 +1,4 @@
-﻿namespace CodeChavez.EventBus.MQTT.Abstractions;
+﻿namespace CodeChavez.EventBus.MQTT.Abstractions.Consumers;
 
 public record ConsumerMqttOptions
 {
@@ -9,5 +9,3 @@ public record ConsumerMqttOptions
     public ushort MaxConcurrency { get; set; } = 4;
     public bool CleanSession { get; set; } = true;
 }
-
-

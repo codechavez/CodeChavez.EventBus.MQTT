@@ -1,4 +1,6 @@
 ﻿using CodeChavez.EventBus.MQTT.Abstractions;
+using CodeChavez.EventBus.MQTT.Abstractions.Consumers;
+using CodeChavez.EventBus.MQTT.Abstractions.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MQTTnet;
@@ -10,7 +12,7 @@ namespace CodeChavez.EventBus.MQTT;
 public sealed class MqttSubscription : IMqttSubscription, IAsyncDisposable
 {
     private readonly ILogger<MqttSubscription> _logger;
-    private readonly ConsumerMqttConfig _consumerMqttConfig;
+    private readonly ConsumerOptions _consumerMqttConfig;
     private readonly SemaphoreSlim _semaphore;
     private readonly Func<string, string, Task>? _messageHandler;
 
@@ -22,7 +24,7 @@ public sealed class MqttSubscription : IMqttSubscription, IAsyncDisposable
 
     public MqttSubscription(
         ILogger<MqttSubscription> logger,
-        IOptions<ConsumerMqttConfig> mqttOptions)
+        IOptions<ConsumerOptions> mqttOptions)
     {
         _logger = logger;
         _consumerMqttConfig = mqttOptions.Value;

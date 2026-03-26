@@ -1,17 +1,28 @@
 # CodeChavez.EventBus.MQTT
 
-A lightweight .NET 10 MQTT client wrapper that provides simplified connection and disconnection management for MQTT brokers using MQTTnet.
+A comprehensive .NET 10 Event Bus library for MQTT messaging that provides simplified connection management, subscription handling, and event publishing capabilities using MQTTnet.
 
 ## Overview
 
-`CodeChavez.EventBus.MQTT` is a utility library that simplifies MQTT client operations with built-in logging and configuration management. It abstracts away common MQTT connection patterns, making it easy to integrate MQTT messaging into your .NET applications.
+`CodeChavez.EventBus.MQTT` is a modular event bus library that simplifies MQTT client operations with built-in logging and configuration management. It provides an abstraction layer over MQTTnet, making it easy to integrate MQTT messaging patterns (pub/sub, event bus) into your .NET applications.
+
+### Packages
+
+This project provides two NuGet packages:
+
+- **CodeChavez.EventBus.MQTT.Abstractions** (v1.0.0-preview004) - Interfaces and abstractions for MQTT implementations
+- **CodeChavez.EventBus.MQTT** (v1.0.0-preview004) - Full implementation of the MQTT event bus
 
 ## Features
 
 - **Simple Connection Management** - Easily connect to MQTT brokers with configurable options
+- **Subscription Management** - Subscribe to MQTT topics with event handling
+- **Event Publishing** - Publish messages to MQTT topics through the event bus pattern
 - **Logging Support** - Built-in logging for debugging and monitoring
 - **Configuration Options** - Flexible configuration through dependency injection
 - **Async/Await Support** - Fully asynchronous operations
+- **Nullable Reference Types** - Full nullable reference type support for safer code
+- **Implicit Usings** - Streamlined using statements for .NET 10
 
 ## Installation
 
@@ -21,6 +32,12 @@ Add the `CodeChavez.EventBus.MQTT` NuGet package to your project:
 dotnet add package CodeChavez.EventBus.MQTT
 ```
 
+Or, if you only need the abstractions:
+
+```bash
+dotnet add package CodeChavez.EventBus.MQTT.Abstractions
+```
+
 ## Quick Start
 
 ### Configuration
@@ -28,8 +45,8 @@ dotnet add package CodeChavez.EventBus.MQTT
 First, configure your MQTT options in your dependency injection container:
 
 ```csharp
-services.Configure<ConsumerMqttConfig>(configuration.GetSection("MqttConfig"));
-services.AddScoped<EventBusMqttClient>();
+services.Configure<ConsumerMqttOptions>(configuration.GetSection("MqttConfig"));
+services.AddScoped<IEventBusMqttClient, EventBusMqttClient>();
 ```
 
 ### Usage Example
@@ -37,10 +54,10 @@ services.AddScoped<EventBusMqttClient>();
 ```csharp
 public class MqttService
 {
-    private readonly EventBusMqttClient _mqttClient;
+    private readonly IEventBusMqttClient _mqttClient;
     private IMqttClient _client;
 
-    public MqttService(EventBusMqttClient mqttClient)
+    public MqttService(IEventBusMqttClient mqttClient)
     {
         _mqttClient = mqttClient;
     }
@@ -49,6 +66,12 @@ public class MqttService
     {
         // Connect to MQTT broker
         _client = await _mqttClient.ConnectAsync("my-client-id");
+    }
+
+    public async Task SubscribeAsync(string topic)
+    {
+        // Subscribe to a topic
+        await _mqttClient.SubscribeAsync(topic);
     }
 
     public async Task DisconnectAsync()
@@ -73,12 +96,17 @@ Add the following to your `appsettings.json`:
     "Port": 1883,
     "Consumer": {
       "ClientId": "my-mqtt-client",
-      "KeepAlinePeriod": 60,
+      "KeepAlivePeriod": 60,
       "CleanSession": true
     }
   }
 }
 ```
+
+## Requirements
+
+- .NET 10 or higher
+- MQTTnet 5.1.0.1559 or higher
 
 ## License
 

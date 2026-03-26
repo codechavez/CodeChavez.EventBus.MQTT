@@ -1,23 +1,18 @@
-﻿using CodeChavez.EventBus.MQTT.Abstractions;
+﻿using CodeChavez.EventBus.MQTT.Abstractions.Consumers;
+using CodeChavez.EventBus.MQTT.Abstractions.Interfaces;
 using CodeChavez.EventBus.MQTT.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeChavez.EventBus.MQTT;
 
-public record ConsumerMqttConfig : MqttOptions
-{
-    public const string ConsumerSection = "MqttConsumer";
-    public ConsumerMqttOptions Consumer { get; set; } = new();
-}
-
 public static class EventBusMQTTModule
 {
     public static IServiceCollection AddMQTTSubscription(
-        this IServiceCollection services,
+        this IServiceCollection services, 
         IConfiguration configuration)
     {
-        services.Configure<ConsumerMqttConfig>(configuration.GetSection(ConsumerMqttConfig.ConsumerSection));
+        services.Configure<ConsumerOptions>(configuration.GetSection(ConsumerOptions.ConsumerSection));
         services.AddSingleton<IMqttSubscription, MqttSubscription>();
 
         return services;
@@ -27,7 +22,7 @@ public static class EventBusMQTTModule
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.Configure<ConsumerMqttConfig>(configuration.GetSection(ConsumerMqttConfig.ConsumerSection));
+        services.Configure<ConsumerOptions>(configuration.GetSection(ConsumerOptions.ConsumerSection));
         services.AddSingleton<IEventBusMqttClient, EventBusMqttClient>();
 
         return services;
